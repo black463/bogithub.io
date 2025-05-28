@@ -1,92 +1,140 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Produk Afiliasi</title>
   <style>
-    /* Reset dan box-sizing */
-    *, *::before, *::after {
+    * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }body {
-  font-family: Arial, sans-serif;
-  background: #f8f8f8;
-  padding: 20px;
-  max-width: 450px;
-  margin: auto;
-}
+    }
 
-.produk {
-  display: flex;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  padding: 12px;
-  margin-bottom: 15px;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-  min-height: 110px;
-  transition: background-color 0.2s;
-}
-.produk:hover {
-  background-color: #f0f0f0;
-}
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      padding: 20px;
+      max-width: 450px;
+      margin: auto;
+    }
 
-.produk img {
-  flex-shrink: 0;
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-right: 15px;
-}
+    .produk {
+      display: flex;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 12px;
+      margin-bottom: 15px;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      min-height: 110px;
+      transition: background-color 0.2s;
+    }
 
-.info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
+    .produk:hover {
+      background-color: #f0f0f0;
+    }
 
-.judul {
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 4px;
-  line-height: 1.2;
-}
+    .produk img {
+      flex-shrink: 0;
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-right: 15px;
+    }
 
-.stok {
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 6px;
-}
+    .info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-.harga {
-  color: #d10000;
-  font-weight: bold;
-  font-size: 15px;
-  line-height: 1.2;
-}
+    .judul {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
 
-.harga-asli {
-  text-decoration: line-through;
-  color: grey;
-  font-size: 13px;
-  margin-left: 6px;
-}
+    .stok {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 6px;
+    }
 
-.tidak-tersedia {
-  color: red;
-  font-size: 13px;
-  margin-top: 4px;
-}
+    .harga {
+      color: #d10000;
+      font-weight: bold;
+      font-size: 15px;
+    }
 
+    .harga-asli {
+      text-decoration: line-through;
+      color: grey;
+      font-size: 13px;
+      margin-left: 6px;
+    }
+
+    .tidak-tersedia {
+      color: red;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    /* GRID STYLE untuk produk 2 & 3 serta 5 & 6 */
+    .produk-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .produk-grid-item {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 10px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .produk-grid-item img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .produk-grid-item .judul {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .produk-grid-item .harga {
+      color: #d10000;
+      font-weight: bold;
+    }
+
+    .produk-grid-item .harga-asli {
+      font-size: 12px;
+      color: gray;
+      text-decoration: line-through;
+    }
   </style>
 </head>
-<body>  <a class="produk" href="http://lynk.id/nrreal2/on4r5g1x9y1p" target="_blank">
+<body>
+
+  <!-- Produk 1 -->
+  <a class="produk" href="http://lynk.id/nrreal2/on4r5g1x9y1p" target="_blank">
     <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/05/images.jpeg" alt="Panduan Berinvestasi">
     <div class="info">
       <div>
@@ -98,30 +146,54 @@
         <span class="harga-asli">Rp240.999</span>
       </div>
     </div>
-  </a>  <a class="produk" href="http://lynk.id/nrreal2/e1nj1p5poexq" target="_blank">
-    <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/05/images.png" alt="Source Code Buka Olshop">
-    <div class="info">
-      <div>
-        <div class="judul">Source Code Buka Olshop</div>
-        <div class="stok">Stok: 779</div>
-      </div>
-      <div>
-        <span class="harga">Rp300.000</span>
-        <span class="harga-asli">Rp699.000</span>
-      </div>
-    </div>
-  </a>  <a class="produk" href="#" target="_blank">
-    <img src="https://via.placeholder.com/100x100?text=Quinton" alt="Quinton Keyboard Combo Mouse Set">
-    <div class="info">
-      <div>
-        <div class="judul">Quinton Keyboard Combo Mouse Set</div>
-        <div class="stok">Stok: 0</div>
-      </div>
-      <div>
-        <span class="harga">Rp3.644</span>
-        <span class="harga-asli">Rp99.999 → Rp66.999 (-33%)</span>
-      </div>
-      <div class="tidak-tersedia">Tidak tersedia</div>
-    </div>
-  </a></body>
+  </a>
+
+  <!-- Produk 2 & 3 -->
+  <div class="produk-grid">
+    <a class="produk-grid-item" href="http://lynk.id/nrreal2/e1nj1p5poexq" target="_blank">
+      <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/05/images.png" alt="Source Code Buka Olshop">
+      <div class="judul">Source Code Olshop</div>
+      <div class="harga">Rp300.000</div>
+      <div class="harga-asli">Rp699.000</div>
+    </a>
+  <a class="produk-grid-item" href="http://lynk.id/nrreal2/e1nj1p5poexq" target="_blank">
+  <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/05/images.png" alt="Source Code Buka Olshop">
+  <div class="judul">Source Code Olshop</div>
+  <div class="harga">Rp300.000</div>
+  <div class="harga-asli">Rp699.000</div>
+</a>
+  </div>
+
+  <!-- Produk 4 -->
+   <a class="produk" href="http://lynk.id/nrreal2/on4r5g1x9y1p" target="_blank">
+   <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/05/images.jpeg" alt="Panduan Berinvestasi">
+   <div class="info">
+     <div>
+       <div class="judul">Panduan Berinvestasi</div>
+       <div class="stok">Stok: Terbatas</div>
+     </div>
+     <div>
+       <span class="harga">Rp50.000</span>
+       <span class="harga-asli">Rp240.999</span>
+     </div>
+   </div>
+ </a>
+
+  <!-- Produk 5 & 6 -->
+  <div class="produk-grid">
+    <a class="produk-grid-item" href="#">
+      <img src="https://via.placeholder.com/100x100?text=Produk5" alt="Produk 5">
+      <div class="judul">Produk 5</div>
+      <div class="harga">Rp20.000</div>
+      <div class="harga-asli">Rp50.000</div>
+    </a>
+    <a class="produk-grid-item" href="#">
+      <img src="https://via.placeholder.com/100x100?text=Produk6" alt="Produk 6">
+      <div class="judul">Produk 6</div>
+      <div class="harga">Rp35.000</div>
+      <div class="harga-asli">Rp70.000</div>
+    </a>
+  </div>
+
+</body>
 </html>
