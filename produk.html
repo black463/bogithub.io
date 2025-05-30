@@ -1,199 +1,276 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Produk Afiliasi</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Poduk Digital</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
     body {
-      font-family: Arial, sans-serif;
-      background: #f8f8f8;
-      padding: 20px;
-      max-width: 450px;
-      margin: auto;
-    }
-
-    .produk {
-      display: flex;
+      font-family: 'Poppins', sans-serif;
       background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      padding: 12px;
-      margin-bottom: 15px;
-      align-items: center;
-      text-decoration: none;
-      color: inherit;
-      min-height: 110px;
-      transition: background-color 0.2s;
+      margin: 0;
+      padding: 15px 20px;
+      color: #333;
     }
-
-    .produk:hover {
-      background-color: #f0f0f0;
+    h2 {
+      margin-top: 40px;
+      font-weight: 600;
     }
-
-    .produk img {
-      flex-shrink: 0;
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 6px;
-      margin-right: 15px;
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 25px 0 15px;
+      color: #ee4d2d; /* warna oranye khas Shopee */
     }
-
-    .info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .judul {
-      font-weight: bold;
+    .search-box {
+      width: 90%;
+      max-width: 600px;
+      padding: 12px 16px;
       font-size: 16px;
-      margin-bottom: 4px;
+      margin: 0 auto 30px;
+      border-radius: 30px;
+      border: 1.5px solid #eee;
+      box-shadow: 0 2px 5px rgba(238, 77, 45, 0.15);
+      outline: none;
+      transition: border-color 0.3s ease;
+      display: block;
     }
-
-    .stok {
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 6px;
+    .search-box:focus {
+      border-color: #ee4d2d;
+      box-shadow: 0 4px 10px rgba(238, 77, 45, 0.25);
     }
-
-    .harga {
-      color: #d10000;
-      font-weight: bold;
-      font-size: 15px;
-    }
-
-    .harga-asli {
-      text-decoration: line-through;
-      color: grey;
-      font-size: 13px;
-      margin-left: 6px;
-    }
-
-    .tidak-tersedia {
-      color: red;
-      font-size: 13px;
-      margin-top: 4px;
-    }
-
-    /* GRID STYLE untuk produk 2 & 3 serta 5 & 6 */
-    .produk-grid {
+    .product-list {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      margin-bottom: 15px;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 20px;
+      max-width: 960px;
+      margin: 0 auto;
     }
-
-    .produk-grid-item {
+    .product-card {
       background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      padding: 10px;
-      text-decoration: none;
-      color: inherit;
+      border-radius: 14px;
+      padding: 15px 15px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
     }
-
-    .produk-grid-item img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      border-radius: 6px;
-      margin-bottom: 10px;
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(238, 77, 45, 0.3);
     }
-
-    .produk-grid-item .judul {
-      font-size: 14px;
-      font-weight: bold;
-      margin-bottom: 4px;
-    }
-
-    .produk-grid-item .harga {
-      color: #d10000;
-      font-weight: bold;
-    }
-
-    .produk-grid-item .harga-asli {
+    .badge {
+      background: #ee4d2d;
+      color: #fff;
       font-size: 12px;
-      color: gray;
-      text-decoration: line-through;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: 20px;
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      box-shadow: 0 2px 6px rgba(238,77,45,0.4);
+      text-transform: uppercase;
+    }
+    .product-img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      margin-bottom: 12px;
+      transition: transform 0.3s ease;
+    }
+    .product-card:hover .product-img {
+      transform: scale(1.05);
+    }
+    .product-name {
+      font-weight: 600;
+      font-size: 15px;
+      color: #222;
+      margin-bottom: 8px;
+      height: 38px; /* fix height untuk rapi */
+      overflow: hidden;
+    }
+    .price {
+      font-size: 14px;
+      color: #ee4d2d;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .price del {
+      color: #999;
+      font-size: 12px;
+      font-weight: 400;
+      margin-left: 6px;
+    }
+    .btn-cart {
+      background: #ee4d2d;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 0;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      box-shadow: 0 3px 8px rgba(238,77,45,0.5);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn-cart:hover {
+      background-color: #d13f21;
+      box-shadow: 0 5px 15px rgba(209,63,33,0.7);
+    }
+    /* Responsive */
+    @media(max-width: 480px) {
+      body {
+        padding: 15px 10px;
+      }
+      .search-box {
+        max-width: 100%;
+      }
+      .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 15px;
+      }
+    }
+    /* Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      padding: 25px 30px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      border-radius: 18px;
+      z-index: 9999;
+      text-align: center;
+      width: 280px;
+      font-weight: 600;
+      color: #ee4d2d;
+      font-size: 16px;
+    }
+    .popup img {
+      width: 48px;
+      margin-bottom: 14px;
+      filter: brightness(0) saturate(100%) invert(38%) sepia(77%) saturate(3356%) hue-rotate(2deg) brightness(102%) contrast(101%);
+    }
+    .popup h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #ee4d2d;
+    }
+    .popup p {
+      margin: 0;
+      font-size: 14px;
+      color: #666;
+      font-weight: 400;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    a:visited {
+      color: inherit;
     }
   </style>
 </head>
 <body>
 
-  <!-- Produk 1 -->
-  <a class="produk" href="http://lynk.id/nrreal2/on4r5g1x9y1p" target="_blank">
-    <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/05/images.jpeg" alt="Panduan Berinvestasi">
-    <div class="info">
-      <div>
-        <div class="judul">Panduan Berinvestasi</div>
-        <div class="stok">Stok: Terbatas</div>
-      </div>
-      <div>
-        <span class="harga">Rp50.000</span>
-        <span class="harga-asli">Rp240.999</span>
-      </div>
+  <input type="text" class="search-box" placeholder="Cari produk..." id="searchInput" />
+
+  <div class="section-title">Flash Sale ⚡</div>
+  <div class="product-list" id="flashSale">
+    <div class="product-card">
+      <div class="badge">Diskon</div>
+      <a href="http://lynk.id/nrreal2/on4r5g1x9y1p" tabindex="-1">
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/05/images.jpeg?text=Baju+Anak+1" alt="Baju Anak 1" class="product-img" />
+        <div class="product-name">Panduan Berinvestasi</div>
+      </a>
+      <div class="price">Rp 50.000 </div>
     </div>
-  </a>
+    <div class="product-card">
+      <div class="badge">Diskon</div>
+      <a href="https://lynk.id/nrreal2/e1nj1p5poexq" tabindex="-1">
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/09/download.jpg" alt="Baju Anak 2" class="product-img" />
+        <div class="product-name">Source Code Buka olshop</div>
+      </a>
+      <div class="price">Rp 300.000</div>
+    </div>
 
-  <!-- Produk 2 & 3 -->
-  <div class="produk-grid">
-    <a class="produk-grid-item" href="http://lynk.id/nrreal2/e1nj1p5poexq" target="_blank">
-      <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/05/images.png" alt="Source Code Buka Olshop">
-      <div class="judul">Source Code Olshop</div>
-      <div class="harga">Rp300.000</div>
-      <div class="harga-asli">Rp699.000</div>
-    </a>
-  <a class="produk-grid-item" href="http://lynk.id/nrreal2/9vz42v2j3wqy" target="_blank">
-  <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/09/download.jpg" alt="Source Code Buka Olshop">
-  <div class="judul">Source Code Home Olshop</div>
-  <div class="harga">Rp20.000</div>
-  <div class="harga-asli">Rp99.000</div>
-</a>
+    </div>
   </div>
 
-  <!-- Produk 4 -->
-   <a class="produk" href="http://lynk.id/nrreal2/on4r5g1x9y1p" target="_blank">
-   <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/05/images.jpeg" alt="Panduan Berinvestasi">
-   <div class="info">
-     <div>
-       <div class="judul">Panduan Berinvestasi</div>
-       <div class="stok">Stok: Terbatas</div>
-     </div>
-     <div>
-       <span class="harga">Rp50.000</span>
-       <span class="harga-asli">Rp240.999</span>
-     </div>
-   </div>
- </a>
+  <div class="section-title">Produk Terlaris ⭐</div>
+  <div class="product-list" id="bestSeller">
+    <div class="product-card">
+      <a href="http://lynk.id/nrreal2/on4r5g1x9y1p" tabindex="-1">
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/05/images.jpeg?text=Baju+Anak+1" alt="Topi Meme 1" class="product-img" />
+        <div class="product-name">Panduan Berinvestasi</div>
+      </a>
+      <div class="price">Rp 50.000</div>
 
-  <!-- Produk 5 & 6 -->
-  <div class="produk-grid">
-    <a class="produk-grid-item" href="#">
-      <img src="https://via.placeholder.com/100x100?text=Produk5" alt="Produk 5">
-      <div class="judul">Produk 5</div>
-      <div class="harga">Rp20.000</div>
-      <div class="harga-asli">Rp50.000</div>
-    </a>
-    <a class="produk-grid-item" href="#">
-      <img src="https://via.placeholder.com/100x100?text=Produk6" alt="Produk 6">
-      <div class="judul">Produk 6</div>
-      <div class="harga">Rp35.000</div>
-      <div class="harga-asli">Rp70.000</div>
-    </a>
+    </div>
+    <div class="product-card">
+      <a href="https://lynk.id/nrreal2/e1nj1p5poexq" tabindex="-1">
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/09/download.jpg" alt="Topi Meme 2" class="product-img" />
+        <div class="product-name">Full Source code Buka Olshop</div>
+      </a>
+      <div class="price">Rp 300.000</div>
+     
+    </div>
+    <div class="product-card">
+      <a href="https://lynk.id/nrreal2/9vz42v2j3wqy" tabindex="-1">
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/09/download.jpg" alt="Topi Meme 3" class="product-img" />
+        <div class="product-name">Home</div>
+      </a>
+      <div class="price">Rp 20.000</div>
+     
+    </div>
   </div>
 
+  <!-- Pop-up -->
+  <div class="popup" id="popup">
+    <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/06/20240118_0915272640851086843623603.png" alt="Tidak ditemukan" />
+    <h3>Tidak ditemukan</h3>
+    <p>Produk yang dicari tidak ditemukan.</p>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const allProducts = document.querySelectorAll('.product-card');
+    const popup = document.getElementById('popup');
+
+    searchInput.addEventListener('input', () => {
+      const keyword = searchInput.value.trim().toLowerCase();
+      let found = false;
+
+      if (keyword === '') {
+        allProducts.forEach(card => card.style.display = 'flex');
+        popup.style.display = 'none';
+        return;
+      }
+
+      allProducts.forEach(card => {
+        const productNameEl = card.querySelector('.product-name');
+        const name = productNameEl ? productNameEl.textContent.toLowerCase() : '';
+        if (name.includes(keyword)) {
+          card.style.display = 'flex';
+          found = true;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      popup.style.display = found ? 'none' : 'block';
+    });
+  </script>
+  
 </body>
 </html>
