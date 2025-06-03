@@ -3,9 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Poduk Digital</title>
+  <title>Produk Digital</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
       background: #fff;
@@ -13,16 +18,19 @@
       padding: 15px 20px;
       color: #333;
     }
+
     h2 {
       margin-top: 40px;
       font-weight: 600;
     }
+
     .section-title {
       font-size: 20px;
       font-weight: 600;
       margin: 25px 0 15px;
-      color: #ee4d2d; /* warna oranye khas Shopee */
+      color: #ee4d2d;
     }
+
     .search-box {
       width: 90%;
       max-width: 600px;
@@ -33,13 +41,14 @@
       border: 1.5px solid #eee;
       box-shadow: 0 2px 5px rgba(238, 77, 45, 0.15);
       outline: none;
-      transition: border-color 0.3s ease;
       display: block;
     }
+
     .search-box:focus {
       border-color: #ee4d2d;
       box-shadow: 0 4px 10px rgba(238, 77, 45, 0.25);
     }
+
     .product-list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -47,6 +56,7 @@
       max-width: 960px;
       margin: 0 auto;
     }
+
     .product-card {
       background: #fff;
       border-radius: 14px;
@@ -60,10 +70,12 @@
       align-items: center;
       text-align: center;
     }
+
     .product-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 20px rgba(238, 77, 45, 0.3);
     }
+
     .badge {
       background: #ee4d2d;
       color: #fff;
@@ -77,36 +89,43 @@
       box-shadow: 0 2px 6px rgba(238,77,45,0.4);
       text-transform: uppercase;
     }
+
     .product-img {
       width: 100%;
+      height: 140px;
       border-radius: 12px;
       object-fit: cover;
       margin-bottom: 12px;
       transition: transform 0.3s ease;
     }
+
     .product-card:hover .product-img {
       transform: scale(1.05);
     }
+
     .product-name {
       font-weight: 600;
       font-size: 15px;
       color: #222;
       margin-bottom: 8px;
-      height: 38px; /* fix height untuk rapi */
+      height: 38px;
       overflow: hidden;
     }
+
     .price {
       font-size: 14px;
       color: #ee4d2d;
       font-weight: 700;
       margin-bottom: 12px;
     }
+
     .price del {
       color: #999;
       font-size: 12px;
       font-weight: 400;
       margin-left: 6px;
     }
+
     .btn-cart {
       background: #ee4d2d;
       color: white;
@@ -120,23 +139,47 @@
       box-shadow: 0 3px 8px rgba(238,77,45,0.5);
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
+
     .btn-cart:hover {
       background-color: #d13f21;
       box-shadow: 0 5px 15px rgba(209,63,33,0.7);
     }
-    /* Responsive */
-    @media(max-width: 480px) {
-      body {
-        padding: 15px 10px;
-      }
-      .search-box {
-        max-width: 100%;
-      }
-      .product-list {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 15px;
-      }
+
+    a {
+      text-decoration: none;
+      color: inherit;
     }
+
+    /* Slider */
+    .slider {
+      max-width: 900px;
+      aspect-ratio: 3 / 1;
+      margin: 5px auto 20px;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .slides {
+      display: flex;
+      width: 100%;
+      animation: slideBanner 5s infinite;
+      height: 100%;
+    }
+
+    .slides img {
+      width:100%;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    @keyframes slideBanner {
+      0%, 33%   { transform: translateX(0%); }
+      40%, 66%  { transform: translateX(-100%); }
+      73%, 100% { transform: translateX(-200%); }
+    }
+
     /* Popup */
     .popup {
       display: none;
@@ -155,33 +198,67 @@
       color: #ee4d2d;
       font-size: 16px;
     }
+
     .popup img {
       width: 48px;
       margin-bottom: 14px;
       filter: brightness(0) saturate(100%) invert(38%) sepia(77%) saturate(3356%) hue-rotate(2deg) brightness(102%) contrast(101%);
     }
+
     .popup h3 {
       margin: 0 0 8px;
       font-size: 18px;
       font-weight: 700;
       color: #ee4d2d;
     }
+
     .popup p {
       margin: 0;
       font-size: 14px;
       color: #666;
       font-weight: 400;
     }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    a:visited {
-      color: inherit;
+
+    /* Responsive */
+    @media(max-width: 480px) {
+      body {
+        padding: 15px 10px;
+      }
+
+    .search-box {
+    width: 3500px;
+    max-width: 100%;
+}
+
+      .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 15px;
+      }
+
+      .slider {
+        aspect-ratio: 3 / 1;
+        height: auto;
+      }
+
+      .slides img {
+        height: 100%;
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- Slide banner -->
+  <div class="slider">
+    <div class="slides">
+      <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/20250603_135346.jpg" alt="Banner 1" />
+      <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/20250603_140422.jpg" alt="Banner 2" />
+      <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/20250603_133733.jpg" />
+    </div>
+  </div>
+  <marquee behavior="scroll" direction="left" style="color: deepskyblue; font-weight: bold;">
+  Diskon Spesial Minggu Ini! Hemat hingga 50% untuk Produk Digital Terpilih!
+</marquee>
 
   <input type="text" class="search-box" placeholder="Cari produk..." id="searchInput" />
 
@@ -190,20 +267,18 @@
     <div class="product-card">
       <div class="badge">Diskon</div>
       <a href="http://lynk.id/nrreal2/on4r5g1x9y1p" tabindex="-1">
-        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/05/images.jpeg?text=Baju+Anak+1" alt="Baju Anak 1" class="product-img" />
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/file_0000000060e061f9a78b675a1132e101.png" alt="Panduan Berinvestasi" class="product-img" />
         <div class="product-name">Panduan Berinvestasi</div>
       </a>
-      <div class="price">Rp 150.000 </div>
+      <div class="price">Rp 50.000 </div>
     </div>
     <div class="product-card">
       <div class="badge">Diskon</div>
       <a href="https://lynk.id/nrreal2/e1nj1p5poexq" tabindex="-1">
-        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/09/download.jpg" alt="Baju Anak 2" class="product-img" />
-        <div class="product-name">Source Code Buka olshop</div>
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/09/download.jpg" alt="Source Code" class="product-img" />
+        <div class="product-name">Source Code Buka Olshop</div>
       </a>
       <div class="price">Rp 300.000</div>
-    </div>
-
     </div>
   </div>
 
@@ -211,51 +286,43 @@
   <div class="product-list" id="bestSeller">
     <div class="product-card">
       <a href="http://lynk.id/nrreal2/on4r5g1x9y1p" tabindex="-1">
-        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/05/images.jpeg?text=Baju+Anak+1" alt="Topi Meme 1" class="product-img" />
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/file_0000000060e061f9a78b675a1132e101.png" alt="Panduan Berinvestasi" class="product-img" />
         <div class="product-name">Panduan Berinvestasi</div>
       </a>
-      <div class="price">Rp 150.000</div>
-
+      <div class="price">Rp 50.000</div>
     </div>
     <div class="product-card">
       <a href="https://lynk.id/nrreal2/e1nj1p5poexq" tabindex="-1">
-        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/09/download.jpg" alt="Topi Meme 2" class="product-img" />
-        <div class="product-name">Full Source code Buka Olshop</div>
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/09/download.jpg" alt="Source Code" class="product-img" />
+        <div class="product-name">Full Source Code Buka Olshop</div>
       </a>
       <div class="price">Rp 300.000</div>
-     
     </div>
     <div class="product-card">
       <a href="https://lynk.id/nrreal2/9vz42v2j3wqy" tabindex="-1">
-        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/09/download.jpg" alt="Topi Meme 3" class="product-img" />
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/09/download.jpg" alt="Home" class="product-img" />
         <div class="product-name">Home</div>
       </a>
       <div class="price">Rp 20.000</div>
     </div>
-
-    <div class="product-card">
-       <a href="http://lynk.id/nrreal2/ggoeq2d7gw30" tabindex="-1">
-        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/09/download1.png" alt="Topi Meme 3" class="product-img" />
-        <div class="product-name">Tamplate Blogger</div>
-      </a>
-      <div class="price">Rp 50.000</div>
-</div>
-      <div class="product-card">
-       <a href="http://lynk.id/nrreal2/035m6yone6k0" tabindex="-1">
-        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/08/code-2.png" alt="Topi Meme 3" class="product-img" />
-        <div class="product-name">Kelas Programmer</div>
-      </a>
-        <div class="price">Rp 150.000</div>
-</div>
-        <div class="product-card">
-       <a href="http://lynk.id/nrreal2/n2kvwjzovr16" tabindex="-1">
-        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/20250531_173647.png" alt="Topi Meme 3" class="product-img" />
-        <div class="product-name">Kelas Berinvestasi</div>
-      </a>
-          <div class="price">Rp 99.999</div>
-    </div>
   </div>
-
+<div class="section-title">KELAS ONLINE ⭐</div>
+<div class="product-list" id="bestSeller">
+  <div class="product-card">
+    <a href="https://lynk.id/nrreal2/035m6yone6k0" tabindex="-1">
+      <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/08/code-2.png" alt="Panduan Berinvestasi" class="product-img" />
+      <div class="product-name">Kelas programmer</div>
+    </a>
+    <div class="price">Rp 150.000</div>
+  </div>
+  <div class="product-card">
+    <a href="https://lynk.id/nrreal2/n2kvwjzovr16" tabindex="-1">
+      <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/20250531_173647.png" alt="Source Code" class="product-img" />
+      <div class="product-name">Kelas Berinvestasi</div>
+    </a>
+    <div class="price">Rp 99.999</div>
+    </div>
+    </div>
   <!-- Pop-up -->
   <div class="popup" id="popup">
     <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/06/20240118_0915272640851086843623603.png" alt="Tidak ditemukan" />
@@ -279,8 +346,7 @@
       }
 
       allProducts.forEach(card => {
-        const productNameEl = card.querySelector('.product-name');
-        const name = productNameEl ? productNameEl.textContent.toLowerCase() : '';
+        const name = card.querySelector('.product-name')?.textContent.toLowerCase() || '';
         if (name.includes(keyword)) {
           card.style.display = 'flex';
           found = true;
@@ -292,6 +358,6 @@
       popup.style.display = found ? 'none' : 'block';
     });
   </script>
-  
+
 </body>
 </html>
