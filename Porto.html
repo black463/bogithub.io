@@ -2,10 +2,12 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>Analisis Lynk.id Lengkap</title>
+  <title>Analisis Halaman Lynk.id</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tool analisis halaman Lynk.id: deteksi link, gambar, CTA, kontak, dan skor profesionalisme.">
+  <link rel="icon" href="https://lynk.id/favicon.ico" type="image/x-icon" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    /* (style sama seperti kamu sudah buat) */
     body {
       font-family: 'Segoe UI', sans-serif;
       background: #f4f6f8;
@@ -13,23 +15,22 @@
       padding: 20px;
     }
     .container {
-      max-width: 750px;
+      max-width: 800px;
       margin: auto;
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       padding: 30px;
     }
-    h2 {
+    h2, h3 {
       text-align: center;
       color: #222;
-      margin-bottom: 25px;
     }
     input[type="text"] {
       width: 100%;
       padding: 12px;
       font-size: 15px;
-      margin-bottom: 15px;
+      margin: 20px 0;
       border-radius: 8px;
       border: 1px solid #ccc;
     }
@@ -60,33 +61,42 @@
       display: inline-block;
       margin: 3px 5px 0 0;
     }
-    canvas {
-      margin-top: 30px;
-    }
     .highlight {
       background-color: #fffb91;
       padding: 0 4px;
       border-radius: 4px;
+    }
+    canvas {
+      margin-top: 30px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #888;
+      font-size: 13px;
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h2>🔍 Analisis Halaman Lynk.id Lengkap</h2>
-  <h3>Nr Real2</h3>
-  <input type="text" id="urlInput" placeholder="Masukkan URL Lynk.id (cth: https://lynk.id/nrreal2)" />
+  <h2>🔍 Analisis Halaman Lynk.id</h2>
+  <h3>By NR Real</h3>
+  <input type="text" id="urlInput" placeholder="Masukkan URL Lynk.id (contoh: https://lynk.id/nrreal2)" />
   <button onclick="analyzePage()">Analisis Sekarang</button>
 
   <div class="result" id="result">Hasil akan ditampilkan di sini...</div>
   <canvas id="chart" height="200"></canvas>
 </div>
 
+<footer>© 2025 NR Real | <a href="https://lynk.id/nrreal2" target="_blank">lynk.id/nrreal2</a></footer>
+
 <script>
   let chartRef = null;
 
   async function analyzePage() {
-    const url = document.getElementById("urlInput").value.trim();
+    const urlInput = document.getElementById("urlInput");
+    const url = urlInput.value.trim() || "https://lynk.id/nrreal2";
     const resultBox = document.getElementById("result");
     resultBox.innerHTML = "⏳ Memuat halaman...";
 
@@ -96,46 +106,37 @@
     }
 
     try {
-      // Gunakan allorigins supaya bebas CORS
       const response = await fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(url));
       const text = await response.text();
 
-      // Parsing HTML
       const parser = new DOMParser();
       const doc = parser.parseFromString(text, "text/html");
 
-      // Info dasar
       const title = doc.querySelector('title')?.textContent || "Tidak ada judul";
       const metaDesc = doc.querySelector('meta[name="description"]')?.content || "Tidak ada deskripsi";
 
-      // Link & media
       const links = doc.querySelectorAll('a');
       const images = doc.querySelectorAll('img');
       const videos = doc.querySelectorAll('video');
 
-      // Kontak
       const telRegex = /tel:\+?\d{5,}/gi;
       const mailRegex = /mailto:[\w.-]+@[\w.-]+\.\w+/gi;
-      const whatsappRegex = /(wa.me\/|api.whatsapp.com\/send\?phone=)\d+/gi;
+      const waRegex = /(wa.me\/|api.whatsapp.com\/send\?phone=)\d+/gi;
 
       const telLinks = [...text.matchAll(telRegex)].map(m => m[0]);
       const mailLinks = [...text.matchAll(mailRegex)].map(m => m[0]);
-      const waLinks = [...text.matchAll(whatsappRegex)].map(m => m[0]);
+      const waLinks = [...text.matchAll(waRegex)].map(m => m[0]);
 
-      // Cari sosial media populer di link
       const socialSites = ["facebook.com", "instagram.com", "twitter.com", "tiktok.com", "linkedin.com", "youtube.com"];
       const socialLinks = [...links].filter(a => socialSites.some(s => a.href.includes(s)));
 
-      // Cari testimoni, rating, ulasan (keyword)
       const bodyText = doc.body.innerText.toLowerCase();
-      const keywordsTestimoni = ["testimoni", "review", "ulasan", "rating"];
-      const foundTestimoni = keywordsTestimoni.filter(k => bodyText.includes(k));
-
-      // Cari CTA
       const ctaKeywords = ["klik", "order", "beli", "hubungi", "promo"];
       const foundCTA = ctaKeywords.filter(k => bodyText.includes(k));
 
-      // Cari produk dengan perbaikan logika
+      const testimoniKeywords = ["testimoni", "review", "ulasan", "rating"];
+      const foundTestimoni = testimoniKeywords.filter(k => bodyText.includes(k));
+
       const allBlocks = doc.querySelectorAll('a, div, section, article');
       let produkDitemukan = 0;
       allBlocks.forEach(el => {
@@ -144,71 +145,51 @@
         const teks = el.textContent.toLowerCase();
         const keywordMatch = /harga|produk|order|pesan|beli|top-up|pulsa|game|ppob/.test(teks);
         const lengthSane = teks.length > 20 && teks.length < 1000;
-
-        if (hasImage && keywordMatch && lengthSane) {
-          produkDitemukan++;
-        }
+        if (hasImage && keywordMatch && lengthSane) produkDitemukan++;
       });
-      produkDitemukan = Math.min(produkDitemukan, 30); // batasi maksimal
+      produkDitemukan = Math.min(produkDitemukan, 30);
 
-      // Cek apakah URL aman (https)
       const isSecure = url.startsWith("https://");
-
-      // Cek adanya Terms, Privacy, FAQ
       const hasTerms = bodyText.includes("terms") || bodyText.includes("ketentuan");
       const hasPrivacy = bodyText.includes("privacy") || bodyText.includes("privasi");
       const hasFAQ = bodyText.includes("faq") || bodyText.includes("pertanyaan");
 
-      // Coba cari profil bisnis dari teks utama (simple heuristic)
-      // Contoh cari "PT." atau kata seperti "owner", "pemilik"
-      const profilePatterns = /(pt\.?\s*[a-z0-9\s]+|pemilik|owner|perusahaan)/gi;
-      const profileMatches = text.match(profilePatterns) || [];
+      const profileMatches = text.match(/(pt\.?\s*[a-z0-9\s]+|pemilik|owner|perusahaan)/gi) || [];
 
-      // Buat laporan teks
+      // Perhitungan Skor Profesionalisme (0-100)
+      let score = 0;
+      score += links.length > 5 ? 10 : 5;
+      score += images.length > 2 ? 10 : 5;
+      score += produkDitemukan > 0 ? 15 : 0;
+      score += foundCTA.length > 0 ? 15 : 0;
+      score += (telLinks.length + mailLinks.length + waLinks.length) > 0 ? 10 : 0;
+      score += socialLinks.length > 0 ? 10 : 0;
+      score += isSecure ? 10 : 0;
+      score += (hasTerms || hasPrivacy || hasFAQ) ? 10 : 0;
+      if (score > 100) score = 100;
+
       let laporan = `<p><strong>Judul Halaman:</strong> ${title}</p>`;
       laporan += `<p><strong>Deskripsi Meta:</strong> ${metaDesc}</p>`;
-      laporan += `<p><strong>Jumlah Link:</strong> ${links.length} (Eksternal: ${
-        [...links].filter(a => a.href.startsWith("http")).length
-      })</p>`;
+      laporan += `<p><strong>Jumlah Link:</strong> ${links.length}</p>`;
       laporan += `<p><strong>Jumlah Gambar:</strong> ${images.length}</p>`;
       laporan += `<p><strong>Jumlah Video:</strong> ${videos.length}</p>`;
       laporan += `<p><strong>Produk Ditemukan:</strong> ${produkDitemukan}</p>`;
-      laporan += `<p><strong>CTA Ditemukan:</strong> ${
-        foundCTA.length > 0 ? foundCTA.map(k => `<span class="badge">${k}</span>`).join(" ") : "Tidak ditemukan"
-      }</p>`;
-
-      laporan += `<p><strong>Kontak Ditemukan:</strong><br>
-        ${telLinks.length ? `<b>Telepon:</b> ${[...new Set(telLinks)].join(", ")}<br>` : ""}
-        ${mailLinks.length ? `<b>Email:</b> ${[...new Set(mailLinks)].join(", ")}<br>` : ""}
-        ${waLinks.length ? `<b>WhatsApp:</b> ${[...new Set(waLinks)].join(", ")}<br>` : ""}
+      laporan += `<p><strong>CTA Ditemukan:</strong> ${foundCTA.length > 0 ? foundCTA.map(k => `<span class="badge">${k}</span>`).join(" ") : "Tidak ditemukan"}</p>`;
+      laporan += `<p><strong>Kontak:</strong><br>
+        ${telLinks.length ? `<b>Telepon:</b> ${telLinks.join(", ")}<br>` : ""}
+        ${mailLinks.length ? `<b>Email:</b> ${mailLinks.join(", ")}<br>` : ""}
+        ${waLinks.length ? `<b>WA:</b> ${waLinks.join(", ")}` : ""}
         ${(!telLinks.length && !mailLinks.length && !waLinks.length) ? "Tidak ditemukan" : ""}
       </p>`;
-
-      laporan += `<p><strong>Link Media Sosial:</strong> ${
-        socialLinks.length > 0 ? socialLinks.map(a => `<a href="${a.href}" target="_blank">${a.href}</a>`).join("<br>") : "Tidak ditemukan"
-      }</p>`;
-
-      laporan += `<p><strong>Testimoni / Ulasan:</strong> ${
-        foundTestimoni.length > 0 ? foundTestimoni.map(k => `<span class="badge">${k}</span>`).join(" ") : "Tidak ditemukan"
-      }</p>`;
-
-      laporan += `<p><strong>Keamanan URL:</strong> ${
-        isSecure ? '<span style="color:green">HTTPS Aman</span>' : '<span style="color:red">Tidak menggunakan HTTPS</span>'
-      }</p>`;
-
-      laporan += `<p><strong>Halaman Penting:</strong> ${
-        (hasTerms ? "Terms/Ketentuan, " : "") +
-        (hasPrivacy ? "Privacy/Privasi, " : "") +
-        (hasFAQ ? "FAQ/Pertanyaan Umum" : "") || "Tidak ditemukan"
-      }</p>`;
-
-      laporan += `<p><strong>Profil Bisnis (kata kunci terkait):</strong> ${
-        profileMatches.length > 0 ? profileMatches.map(p => `<span class="highlight">${p}</span>`).join(", ") : "Tidak ditemukan"
-      }</p>`;
+      laporan += `<p><strong>Media Sosial:</strong> ${socialLinks.length ? socialLinks.map(a => `<a href="${a.href}" target="_blank">${a.href}</a>`).join("<br>") : "Tidak ditemukan"}</p>`;
+      laporan += `<p><strong>Testimoni/Ulasan:</strong> ${foundTestimoni.length > 0 ? foundTestimoni.map(k => `<span class="badge">${k}</span>`).join(" ") : "Tidak ditemukan"}</p>`;
+      laporan += `<p><strong>Keamanan:</strong> ${isSecure ? '<span style="color:green">HTTPS Aman</span>' : '<span style="color:red">Tidak HTTPS</span>'}</p>`;
+      laporan += `<p><strong>Halaman Penting:</strong> ${(hasTerms ? "Terms " : "") + (hasPrivacy ? "Privacy " : "") + (hasFAQ ? "FAQ" : "") || "Tidak ditemukan"}</p>`;
+      laporan += `<p><strong>Profil Bisnis:</strong> ${profileMatches.length ? profileMatches.map(p => `<span class="highlight">${p}</span>`).join(", ") : "Tidak ditemukan"}</p>`;
+      laporan += `<p><strong>Skor Profesionalisme:</strong> <span class="badge">${score}/100</span></p>`;
 
       resultBox.innerHTML = laporan;
 
-      // Grafik
       const dataChart = {
         labels: ['Link', 'Gambar', 'Video', 'CTA', 'Produk', 'Kontak', 'Sosial Media'],
         datasets: [{
@@ -226,7 +207,8 @@
         }]
       };
 
-      const config = {
+      if (chartRef) chartRef.destroy();
+      chartRef = new Chart(document.getElementById('chart'), {
         type: 'bar',
         data: dataChart,
         options: {
@@ -238,13 +220,10 @@
             }
           }
         }
-      };
-
-      if (chartRef) chartRef.destroy();
-      chartRef = new Chart(document.getElementById('chart'), config);
+      });
 
     } catch (e) {
-      resultBox.innerHTML = "❌ Gagal mengambil data. Pastikan URL benar dan situs dapat diakses.<br><br><code>" + e + "</code>";
+      resultBox.innerHTML = "❌ Gagal mengambil data. Periksa URL dan koneksi.<br><br><code>" + e + "</code>";
     }
   }
 </script>
