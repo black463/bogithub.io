@@ -96,7 +96,65 @@
   </div>
 
   <!-- SCRIPT -->
-<script>  document.write(unescape("%20%3Cscript%3E%0A%20%20%20%20%2F%2F%20Filter%20produk%0A%20%20%20%20function%20filterProduk()%20%7B%0A%20%20%20%20%20%20var%20input%20%3D%20document.getElementById(%22searchInput%22)%3B%0A%20%20%20%20%20%20var%20filter%20%3D%20input.value.toLowerCase()%3B%0A%20%20%20%20%20%20var%20grid%20%3D%20document.getElementById(%22produkList%22)%3B%0A%20%20%20%20%20%20var%20cards%20%3D%20grid.getElementsByClassName(%22card%22)%3B%0A%0A%20%20%20%20%20%20for%20(var%20i%20%3D%200%3B%20i%20%3C%20cards.length%3B%20i%2B%2B)%20%7B%0A%20%20%20%20%20%20%20%20var%20title%20%3D%20cards%5Bi%5D.getElementsByTagName(%22h2%22)%5B0%5D%3B%0A%20%20%20%20%20%20%20%20if%20(title.innerText.toLowerCase().indexOf(filter)%20%3E%20-1)%20%7B%0A%20%20%20%20%20%20%20%20%20%20cards%5Bi%5D.style.display%20%3D%20%22%22%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20cards%5Bi%5D.style.display%20%3D%20%22none%22%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20%2F%2F%20Banner%20Slide%20Otomatis%0A%20%20%20%20let%20slideIndex%20%3D%200%3B%0A%20%20%20%20const%20slides%20%3D%20document.querySelectorAll(%22.slide%22)%3B%0A%0A%20%20%20%20function%20showSlide(index)%20%7B%0A%20%20%20%20%20%20slides.forEach((slide%2C%20i)%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20slide.classList.remove(%22active%22)%3B%0A%20%20%20%20%20%20%20%20if%20(i%20%3D%3D%3D%20index)%20slide.classList.add(%22active%22)%3B%0A%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20function%20moveSlide(n)%20%7B%0A%20%20%20%20%20%20slideIndex%20%2B%3D%20n%3B%0A%20%20%20%20%20%20if%20(slideIndex%20%3E%3D%20slides.length)%20slideIndex%20%3D%200%3B%0A%20%20%20%20%20%20if%20(slideIndex%20%3C%200)%20slideIndex%20%3D%20slides.length%20-%201%3B%0A%20%20%20%20%20%20showSlide(slideIndex)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20function%20autoSlide()%20%7B%0A%20%20%20%20%20%20slideIndex%2B%2B%3B%0A%20%20%20%20%20%20if%20(slideIndex%20%3E%3D%20slides.length)%20slideIndex%20%3D%200%3B%0A%20%20%20%20%20%20showSlide(slideIndex)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20showSlide(slideIndex)%3B%0A%20%20%20%20setInterval(autoSlide%2C%203000)%3B%20%2F%2F%203%20detik%0A%20%20%3C%2Fscript%3E%0A%20%20%3Cscript%3E%0A%20%20%20%20function%20filterKategori(kategori)%20%7B%0A%20%20const%20cards%20%3D%20document.querySelectorAll(%22%23produkList%20.card%22)%3B%0A%20%20%0A%20%20cards.forEach(card%20%3D%3E%20%7B%0A%20%20%20%20const%20label%20%3D%20card.querySelector(%22.label%22).textContent.toLowerCase()%3B%0A%20%20%20%20if%20(kategori%20%3D%3D%3D%20%22semua%22%20%7C%7C%20label.includes(kategori))%20%7B%0A%20%20%20%20%20%20card.style.display%20%3D%20%22%22%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20card.style.display%20%3D%20%22none%22%3B%0A%20%20%20%20%7D%0A%20%20%7D)%3B%0A%7D"));  </script>
+<script>
+  // Filter produk
+  function filterProduk() {
+    var input = document.getElementById("searchInput");
+    var filter = input.value.toLowerCase();
+    var grid = document.getElementById("produkList");
+    var cards = grid.getElementsByClassName("card");
+    
+    for (var i = 0; i < cards.length; i++) {
+      var title = cards[i].getElementsByTagName("h2")[0];
+      if (title.innerText.toLowerCase().indexOf(filter) > -1) {
+        cards[i].style.display = "";
+      } else {
+        cards[i].style.display = "none";
+      }
+    }
+  }
+  
+  // Banner Slide Otomatis
+  let slideIndex = 0;
+  const slides = document.querySelectorAll(".slide");
+  
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.remove("active");
+      if (i === index) slide.classList.add("active");
+    });
+  }
+  
+  function moveSlide(n) {
+    slideIndex += n;
+    if (slideIndex >= slides.length) slideIndex = 0;
+    if (slideIndex < 0) slideIndex = slides.length - 1;
+    showSlide(slideIndex);
+  }
+  
+  function autoSlide() {
+    slideIndex++;
+    if (slideIndex >= slides.length) slideIndex = 0;
+    showSlide(slideIndex);
+  }
+  
+  showSlide(slideIndex);
+  setInterval(autoSlide, 3000); // 3 detik
+</script>
+<script>
+  function filterKategori(kategori) {
+    const cards = document.querySelectorAll("#produkList .card");
+    
+    cards.forEach(card => {
+      const label = card.querySelector(".label").textContent.toLowerCase();
+      if (kategori === "semua" || label.includes(kategori)) {
+        card.style.display = "";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+</script>
  
 </body>
 </html>
