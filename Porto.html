@@ -2,231 +2,110 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>Analisis Halaman Lynk.id</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Tool analisis halaman Lynk.id: deteksi link, gambar, CTA, kontak, dan skor profesionalisme.">
-  <link rel="icon" href="https://lynk.id/favicon.ico" type="image/x-icon" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f6f8;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 30px;
-    }
-    h2, h3 {
-      text-align: center;
-      color: #222;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 12px;
-      font-size: 15px;
-      margin: 20px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      background-color: #2196F3;
-      color: white;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #1976D2;
-    }
-    .result {
-      margin-top: 25px;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-    .badge {
-      background: #4CAF50;
-      color: white;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 13px;
-      display: inline-block;
-      margin: 3px 5px 0 0;
-    }
-    .highlight {
-      background-color: #fffb91;
-      padding: 0 4px;
-      border-radius: 4px;
-    }
-    canvas {
-      margin-top: 30px;
-    }
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      color: #888;
-      font-size: 13px;
-    }
-  </style>
+  <title>Portofolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-800 font-sans">
 
-<div class="container">
-  <h2>🔍 Analisis Halaman Lynk.id</h2>
-  <h3>By NR Real</h3>
-  <input type="text" id="urlInput" placeholder="Masukkan URL Lynk.id (contoh: https://lynk.id/nrreal2)" />
-  <button onclick="analyzePage()">Analisis Sekarang</button>
+  <!-- Header -->
+  <header class="bg-white shadow-md p-6 text-center">
+    <h1 class="text-3xl font-bold text-blue-700">Jejak Kehidupan</h1>
+    <p class="mt-1 text-gray-600">Rahmadani – Ekonom • Programmer • Santri</p>
+    <a href="https://lynk.id/nrreal2" class="text-blue-500 hover:underline" target="_blank">lynk.id/nrreal2</a>
+  </header>
 
-  <div class="result" id="result">Hasil akan ditampilkan di sini...</div>
-  <canvas id="chart" height="200"></canvas>
-</div>
+  <!-- Timeline Pendidikan -->
+  <section class="max-w-4xl mx-auto my-10 px-4">
+    <h2 class="text-2xl font-semibold mb-6 text-center">📚 Pendidikan</h2>
+    <div class="space-y-6">
 
-<footer>© 2025 NR Real | <a href="https://lynk.id/nrreal2" target="_blank">lynk.id/nrreal2</a></footer>
+     
+      <div class="flex items-center bg-white p-4 rounded-xl shadow-sm">
+        <img src="https://cdn.lynkid.my.id/draft-products/19-06-2025/1750274578623_2297059.jpeg" alt="Logo SMP" class="w-14 h-14 mr-4 rounded" />
+        <div>
+          <h3 class="font-bold text-lg">Codepolitan - infofmasi Teknologi</h3>
+          <p class="text-sm text-gray-600">2011 – Trus Upgrade skil Hingga sekarang</p>
+        </div>
+      </div>
 
-<script>
-  let chartRef = null;
+      <div class="flex items-center bg-white p-4 rounded-xl shadow-sm">
+        <img src="https://cdn.lynkid.my.id/draft-products/19-06-2025/1750274523619_6567090.jpeg" alt="Pondok Pesantren" class="w-14 h-14 mr-4 rounded" />
+        <div>
+          <h3 class="font-bold text-lg">Pondok Pesantren - Darussa'adah</h3>
+          <p class="text-sm text-gray-600">2014 – Terus Memperdalam Untuk Bekal akhirat</p>
+        </div>
+      </div>
 
-  async function analyzePage() {
-    const urlInput = document.getElementById("urlInput");
-    const url = urlInput.value.trim() || "https://lynk.id/nrreal2";
-    const resultBox = document.getElementById("result");
-    resultBox.innerHTML = "⏳ Memuat halaman...";
+      <div class="flex items-center bg-white p-4 rounded-xl shadow-sm">
+        <img src="https://cdn.lynkid.my.id/draft-products/19-06-2025/1750274447112_3383270.jpeg" class="w-14 h-14 mr-4 rounded" />
+        <div>
+          <h3 class="font-bold text-lg">Universitas UNIKI – Management Ekonomi</h3>
+          <p class="text-sm text-gray-600">2019 – 2023</p>
+        </div>
+      </div>
 
-    if (!url.startsWith("http")) {
-      resultBox.innerHTML = "❌ Masukkan URL yang valid (harus diawali dengan http atau https).";
-      return;
-    }
+    </div>
+  </section>
 
-    try {
-      const response = await fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(url));
-      const text = await response.text();
+  <!-- Sertifikat -->
+  <section class="max-w-4xl mx-auto my-10 px-4">
+    <h2 class="text-2xl font-semibold mb-6 text-center">📄 Sertifikat & Keahlian</h2>
+    <div class="grid sm:grid-cols-2 gap-6">
 
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(text, "text/html");
+      <div class="bg-white p-4 rounded-xl shadow-md">
+        <h3 class="font-semibold">Sertifikat Pondok Pesantren</h3>
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/20250616_161009.jpg" alt="Sertifikat" class="mt-2 rounded shadow" />
+      </div>
 
-      const title = doc.querySelector('title')?.textContent || "Tidak ada judul";
-      const metaDesc = doc.querySelector('meta[name="description"]')?.content || "Tidak ada deskripsi";
+      <div class="bg-white p-4 rounded-xl shadow-md">
+        <h3 class="font-semibold">Sertifikat Belajar Pemrograman</h3>
+        <img src="https://cdn.lynkid.my.id/draft-products/19-06-2025/1750274780114_7378888.jpeg" alt="Sertifikat" class="mt-2 rounded shadow" />
+      </div>
+     
+  <div class="bg-white p-4 rounded-xl shadow-md">
+        <h3 class="font-semibold">Sertifikat Legalitas Usaha</h3>
+        <img src="https://cdn.lynkid.my.id/draft-products/19-06-2025/1750275285906_8159023.jpeg" alt="Sertifikat" class="mt-2 rounded shadow" />
+      </div>
+      
+             <div class="bg-white p-4 rounded-xl shadow-md">
+         <h3 class="font-semibold">Piagam & Certificate</h3>
+         <img src="https://cdn.lynkid.my.id/draft-products/19-06-2025/1750275581657_1378710.webp" alt="Sertifikat" class="mt-2 rounded shadow" />
+       </div>
 
-      const links = doc.querySelectorAll('a');
-      const images = doc.querySelectorAll('img');
-      const videos = doc.querySelectorAll('video');
+    </div>
+  </section>
 
-      const telRegex = /tel:\+?\d{5,}/gi;
-      const mailRegex = /mailto:[\w.-]+@[\w.-]+\.\w+/gi;
-      const waRegex = /(wa.me\/|api.whatsapp.com\/send\?phone=)\d+/gi;
+  <!-- Proyek -->
+  <section class="max-w-4xl mx-auto my-10 px-4">
+    <h2 class="text-2xl font-semibold mb-6 text-center">🚀 Proyek & Pengalaman</h2>
+    <div class="space-y-4">
 
-      const telLinks = [...text.matchAll(telRegex)].map(m => m[0]);
-      const mailLinks = [...text.matchAll(mailRegex)].map(m => m[0]);
-      const waLinks = [...text.matchAll(waRegex)].map(m => m[0]);
+      <div class="bg-white p-4 rounded-xl shadow-md">
+        <h3 class="font-bold text-lg">NR Payment</h3>
+        <p class="text-sm text-gray-700">Aplikasi top-up game, PLN, dan e-wallet. Dikembangkan mandiri dari nol.</p>
+      </div>
 
-      const socialSites = ["facebook.com", "instagram.com", "twitter.com", "tiktok.com", "linkedin.com", "youtube.com"];
-      const socialLinks = [...links].filter(a => socialSites.some(s => a.href.includes(s)));
+      <div class="bg-white p-4 rounded-xl shadow-md">
+        <h3 class="font-bold text-lg">Tool Analisis Lynk.id</h3>
+        <p class="text-sm text-gray-700">Menampilkan detail isi halaman Lynk.id secara visual.</p>
+      </div>
 
-      const bodyText = doc.body.innerText.toLowerCase();
-      const ctaKeywords = ["klik", "order", "beli", "hubungi", "promo"];
-      const foundCTA = ctaKeywords.filter(k => bodyText.includes(k));
+    </div>
+  </section>
 
-      const testimoniKeywords = ["testimoni", "review", "ulasan", "rating"];
-      const foundTestimoni = testimoniKeywords.filter(k => bodyText.includes(k));
+  <!-- Visi & Misi -->
+  <section class="max-w-3xl mx-auto my-12 px-4 text-center">
+    <h2 class="text-2xl font-semibold mb-4">🌟 Visi & Misi</h2>
+    <blockquote class="italic text-gray-600">
+      "Saya ingin membangun solusi digital yang bermanfaat, dari dunia pesantren, ekonomi syariah, hingga teknologi digital modern."
+    </blockquote>
+  </section>
 
-      const allBlocks = doc.querySelectorAll('a, div, section, article');
-      let produkDitemukan = 0;
-      allBlocks.forEach(el => {
-        const hasImage = el.querySelector('img') !== null;
-        const hasLinkOrButton = el.querySelector('a, button') !== null;
-        const teks = el.textContent.toLowerCase();
-        const keywordMatch = /harga|produk|order|pesan|beli|top-up|pulsa|game|ppob/.test(teks);
-        const lengthSane = teks.length > 20 && teks.length < 1000;
-        if (hasImage && keywordMatch && lengthSane) produkDitemukan++;
-      });
-      produkDitemukan = Math.min(produkDitemukan, 30);
-
-      const isSecure = url.startsWith("https://");
-      const hasTerms = bodyText.includes("terms") || bodyText.includes("ketentuan");
-      const hasPrivacy = bodyText.includes("privacy") || bodyText.includes("privasi");
-      const hasFAQ = bodyText.includes("faq") || bodyText.includes("pertanyaan");
-
-      const profileMatches = text.match(/(pt\.?\s*[a-z0-9\s]+|pemilik|owner|perusahaan)/gi) || [];
-
-      // Perhitungan Skor Profesionalisme (0-100)
-      let score = 0;
-      score += links.length > 5 ? 10 : 5;
-      score += images.length > 2 ? 10 : 5;
-      score += produkDitemukan > 0 ? 15 : 0;
-      score += foundCTA.length > 0 ? 15 : 0;
-      score += (telLinks.length + mailLinks.length + waLinks.length) > 0 ? 10 : 0;
-      score += socialLinks.length > 0 ? 10 : 0;
-      score += isSecure ? 10 : 0;
-      score += (hasTerms || hasPrivacy || hasFAQ) ? 10 : 0;
-      if (score > 100) score = 100;
-
-      let laporan = `<p><strong>Judul Halaman:</strong> ${title}</p>`;
-      laporan += `<p><strong>Deskripsi Meta:</strong> ${metaDesc}</p>`;
-      laporan += `<p><strong>Jumlah Link:</strong> ${links.length}</p>`;
-      laporan += `<p><strong>Jumlah Gambar:</strong> ${images.length}</p>`;
-      laporan += `<p><strong>Jumlah Video:</strong> ${videos.length}</p>`;
-      laporan += `<p><strong>Produk Ditemukan:</strong> ${produkDitemukan}</p>`;
-      laporan += `<p><strong>CTA Ditemukan:</strong> ${foundCTA.length > 0 ? foundCTA.map(k => `<span class="badge">${k}</span>`).join(" ") : "Tidak ditemukan"}</p>`;
-      laporan += `<p><strong>Kontak:</strong><br>
-        ${telLinks.length ? `<b>Telepon:</b> ${telLinks.join(", ")}<br>` : ""}
-        ${mailLinks.length ? `<b>Email:</b> ${mailLinks.join(", ")}<br>` : ""}
-        ${waLinks.length ? `<b>WA:</b> ${waLinks.join(", ")}` : ""}
-        ${(!telLinks.length && !mailLinks.length && !waLinks.length) ? "Tidak ditemukan" : ""}
-      </p>`;
-      laporan += `<p><strong>Media Sosial:</strong> ${socialLinks.length ? socialLinks.map(a => `<a href="${a.href}" target="_blank">${a.href}</a>`).join("<br>") : "Tidak ditemukan"}</p>`;
-      laporan += `<p><strong>Testimoni/Ulasan:</strong> ${foundTestimoni.length > 0 ? foundTestimoni.map(k => `<span class="badge">${k}</span>`).join(" ") : "Tidak ditemukan"}</p>`;
-      laporan += `<p><strong>Keamanan:</strong> ${isSecure ? '<span style="color:green">HTTPS Aman</span>' : '<span style="color:red">Tidak HTTPS</span>'}</p>`;
-      laporan += `<p><strong>Halaman Penting:</strong> ${(hasTerms ? "Terms " : "") + (hasPrivacy ? "Privacy " : "") + (hasFAQ ? "FAQ" : "") || "Tidak ditemukan"}</p>`;
-      laporan += `<p><strong>Profil Bisnis:</strong> ${profileMatches.length ? profileMatches.map(p => `<span class="highlight">${p}</span>`).join(", ") : "Tidak ditemukan"}</p>`;
-      laporan += `<p><strong>Skor Profesionalisme:</strong> <span class="badge">${score}/100</span></p>`;
-
-      resultBox.innerHTML = laporan;
-
-      const dataChart = {
-        labels: ['Link', 'Gambar', 'Video', 'CTA', 'Produk', 'Kontak', 'Sosial Media'],
-        datasets: [{
-          label: 'Jumlah Ditemukan',
-          data: [
-            links.length,
-            images.length,
-            videos.length,
-            foundCTA.length,
-            produkDitemukan,
-            telLinks.length + mailLinks.length + waLinks.length,
-            socialLinks.length
-          ],
-          backgroundColor: ['#42a5f5', '#66bb6a', '#ff7043', '#ab47bc', '#ffa726', '#29b6f6', '#8e24aa']
-        }]
-      };
-
-      if (chartRef) chartRef.destroy();
-      chartRef = new Chart(document.getElementById('chart'), {
-        type: 'bar',
-        data: dataChart,
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: { stepSize: 1 }
-            }
-          }
-        }
-      });
-
-    } catch (e) {
-      resultBox.innerHTML = "❌ Gagal mengambil data. Periksa URL dan koneksi.<br><br><code>" + e + "</code>";
-    }
-  }
-</script>
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 py-6">
+    &copy; 2025 Rahmadani. All rights reserved.
+  </footer>
 
 </body>
 </html>
