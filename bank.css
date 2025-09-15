@@ -1,0 +1,69 @@
+    body {
+      background: #ecf0f3;
+      font-family: 'Inter', sans-serif;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+   
+    .tab-codingqu {
+      row-gap: 10px;
+      padding: 15px;
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .menu-codingqu {
+      background: #ecf0f3;
+      padding: 5px;
+      margin: 5px;
+      border-radius: 0 18px 18px 0;
+      border: none;
+      align-items: center;
+      box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px #ceced1;
+      border-left: 5px solid #2563eb;
+    }
+    
+    .menu-codingqu .menu-link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .menu-codingqu p {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1E0145;
+      margin-left: 5px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    /* Style for the icon container */
+    .icon-container {
+      width: 55px;
+      height: 55px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 15px;
+      background: #ecf0f3;
+      padding: 8px;
+      box-shadow: inset -3px -3px 7px #ffffff, inset 3px 3px 5px #ceced1;
+      border: 1px solid #F7F7F7;
+      overflow: hidden;
+    }
+
+    .icon-container img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 10px; /* Sudut sedikit tumpul */
+    }
+
+    #loading-message {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+    }
