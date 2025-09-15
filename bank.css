@@ -21,7 +21,7 @@
       border: none;
       align-items: center;
       box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px #ceced1;
-      border-left: 5px solid #2563eb;
+      border-left: 5px solid {{warna_utama}};
     }
     
     .menu-codingqu .menu-link {
