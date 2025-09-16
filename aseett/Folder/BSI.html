@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <title>Kembali</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <script src="https://kit.fontawesome.com/d16a2d0aca.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://black463.github.io/bogithub.io/bsi.css">
+ 
+  <script>
+    // ID KATAGORI
+    var kategori1 = "585531"
+    // TOKEN OPEN API OLSHOP
+    var token = "eyJhcHAiOiI5MzE1MSIsImF1dGgiOiIyMDIyMDExNyIsInNpZ24iOiJVK1FOYks5V3JZRlh1T2tNUmJFcGFBPT0ifQ==";
+  </script>
+</head>
+
+<body>
+  <div class="sticky-top">
+    <div class="headers"></div>
+    <div class="container">
+      <div class="pilihan shadows" style="padding: 15px;border-radius: 20px;top: 0px;position: relative;z-index: 1000;">
+        <div class="cq-1"></div>
+        <form class="input_form" action="" method="get" accept-charset="utf-8">
+          <div class="d-flex align-items-center mb-3">
+            <div class="logo">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqveo4mupcqZ1HTeD8sOY8LjC5icqooPfbLHQoLIOeRPeAplaDVXSj-PSN&s=10"
+                alt="">
+            </div>
+            <label>TopUp BSI</label>
+          </div>
+          <div class="d-flex inpt">
+            <input class="form-control {{hasil_kontak}}" type="tel" name="catatan" id="id" value=""
+              placeholder="Nomor Rekening" />
+          </div>
+        </form>
+
+        <div class="box">
+          <a href="https://payment02.olshopku.com/ambil_kontak" class="w-100 text-center">
+            <i class="fa-solid fa-address-book"></i> Ambil Kontak
+          </a>
+          <div class="icon">
+            <button id="toggleMoodButton" class="btn btn-primary">
+              <i class="fa-solid fa-toggle-on" alt="" id="iconMood1"></i>
+              <i class="fa-solid fa-toggle-off" alt="" id="iconMood2" style="display:none;"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="d-flex pack--ceknick">
+      <button onclick="cekNick()">Cek ID</button>
+      <div class="name">
+        <p id="nick">... User Name ...</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+      <div class="info-box">
+        <div class="text-box">
+          <p>Transfer Uang Kemana Ada Dengan Mudah Dan Cepat,
+          Transaksi Dengan all payment Dapat Cashback
+            </p>
+          </div>
+        </div>
+  </div>
+
+
+
+  <div class="container">
+    <div class="tab-content mt-2">
+      <div class="tab-pane fade show active" id="kategori1">
+        <ul style="list-style-type: none; padding-inline-start: 0;" id="productList1" class="mood2"></ul>
+      </div>
+    </div>
+    <div id="loadingSpinner">
+      <center>
+        <div class="loader"></div>
+        <p class="cp-load">Memuat Produk..</p>
+      </center>
+    </div>
+  </div>
+
+
+  <div class="toast" id="emptyInputToast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+    <div class="toast-header" style="border-radius: 10px">
+      <strong class="mr-auto text-white">Nomor Rekening Tujuan Belum di isi</strong>
+      <button type="button" class="ml-2 mb-1 text-white close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+  </div>
+
+
+  <script>
+    var kategoriAktif = kategori1;
+    var idInput = document.getElementById("id");
+    var productList = document.getElementById("productList");
+
+    function rubah(harga) {
+      var reverse = harga.toString().split('').reverse().join(''),
+        ribuan = reverse.match(/\d{1,3}/g);
+      ribuan = ribuan.join('.').split('').reverse().join('');
+      return "Rp " + ribuan;
+    };
+
+    function showProductDetails(productName, productDescription, productPrice, productUrl) {
+      var id = encodeURIComponent(idInput.value);
+      if (!id) {
+        $('#emptyInputToast').toast('show');
+        return;
+      }
+      var finalUrl = productUrl + (productUrl.includes('?') ? '&' : '?') + 'catatan=' + id;
+      window.location.href = finalUrl;
+    }
+
+
+    function loadAllProducts(tabId, kategoriKode) {
+      var loadingSpinner = document.getElementById("loadingSpinner");
+
+      function showLoading() {
+        loadingSpinner.style.display = "block";
+      }
+
+      function hideLoading() {
+        loadingSpinner.style.display = "none";
+      }
+
+      function compareByPrice(a, b) {
+        return a.harga_produk - b.harga_produk;
+      }
+
+      var xmlHttpRequest = new XMLHttpRequest();
+      showLoading();
+      xmlHttpRequest.open("GET", `https://openapi.bukaolshop.net/v1/app/produk?token=${token}&total_data=100&id_kategori=${kategoriKode}`, true);
+      xmlHttpRequest.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var response = JSON.parse(this.responseText);
+          if (response && response.data && response.data.length > 0) {
+            var filteredProducts = response.data.filter(function (product) {
+              return product.id_kategori === kategoriKode;
+            });
+            filteredProducts.sort(compareByPrice);
+            displayProducts(tabId, filteredProducts);
+          }
+          hideLoading();
+        }
+      };
+      xmlHttpRequest.send();
+    }
+
+    function displayProducts(tabId, products) {
+      var productList = document.getElementById("productList" + tabId.charAt(tabId.length - 1));
+      productList.innerHTML = "";
+      products.forEach(function (product) {
+        var listItem = document.createElement("li");
+        var hargaFormatted = rubah(product.harga_produk);
+        var productUrl = `${product.url_produk}`;
+        var deskripsi = encodeURIComponent(`${product.deskripsi_panjang}`);
+        listItem.setAttribute("data-product-name", product.nama_produk);
+        listItem.setAttribute("data-product-price", hargaFormatted);
+        listItem.setAttribute("data-product-img", product.url_gambar_produk);
+        listItem.setAttribute("data-product-diskon", product.harga_produk_asli);
+        listItem.setAttribute("data-product-url", product.url_produk);
+        listItem.innerHTML = `<div class="produks animate__animated animate__flipInX" onclick="showProductDetails('${product.nama_produk}', '${deskripsi}', ${product.harga_produk},'${productUrl}')">
+                    <div class="pil-produk">
+                        <div class="w-100">
+                          <div class="d-flex align-items-center">
+                            <h4 class="w-100 nama--produks">${product.nama_produk}</h4>
+                            <h4 class="harga-asli">${rubah(product.harga_produk_asli)}</h4>
+                            <img src="${product.url_gambar_produk}">
+                            </div>
+                            <p>${hargaFormatted}</p>
+                           
+                        </div>
+                    </div>
+                </div>`;
+        productList.appendChild(listItem);
+        if (product.harga_produk_asli === 0) {
+          listItem.querySelector('.harga-asli').classList.add('hidden');
+        }
+      });
+    }
+    $(document).ready(function () {
+      loadAllProducts("kategori1", kategori1);
+    });
+  </script>
+  <script>
+    var api = 'ac22d45dcc992e41aae9a26e0c7b0825';
+    type = "bsi"
+
+    function cekNick() {
+      var id = $('#id').val();
+      if (id === "") {
+        $('#nick').text('');
+        $('#nickplayer').text('');
+        Swal.fire({
+          icon: 'info',
+          text: 'Nomor Hp Kosong!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        return;
+      }
+
+      $.ajax({
+        method: "GET",
+        url: "https://api-otomatis.my.id/trueid/bank/?norek=" + id + "&kode=bsm&key=" + api,
+        beforeSend: function () {
+          $('#nick').text('Sedang Mengecek...');
+          $('#nickplayer').text('Sedang Mengecek...');
+        },
+        success: function (response) {
+          if (response.hasOwnProperty('error_msg')) {
+            $('#nick').text('Tidak Ditemukan!');
+            $('#nickplayer').text('Tidak Ditemukan!');
+          } else {
+            $('#nick').text(response.nama_rek);
+            $('#nickplayer').text(response.nama_rek);
+          }
+        }
+      });
+    }
+
+    $('#id').on('change', function () {
+      var no = $(this).val()
+      var newno = no.replace('-', '').trim()
+      var cek = newno.substring(0, 3).replace('-', '').trim()
+      var ceka = newno.substring(3, 16).replace('-', '').trim()
+
+      if (cek == '+62') {
+        let result = 0
+        $(this).val(result + ceka)
+        getNmr(result + ceka)
+      } else {
+        $(this).val(cek + ceka)
+        getNmr(cek + ceka);
+      }
+    });
+  </script>
+  <script>
+    function toggleMood() {
+      var productList1 = document.getElementById("productList1");
+      var iconMood1 = document.getElementById("iconMood1");
+      var iconMood2 = document.getElementById("iconMood2");
+      if (productList1.classList.contains("mood1")) {
+        productList1.classList.remove("mood1");
+        productList1.classList.add("mood2");
+      } else {
+        productList1.classList.remove("mood2");
+        productList1.classList.add("mood1");
+      }
+      if (iconMood1.style.display === "none") {
+        iconMood1.style.display = "inline-block";
+        iconMood2.style.display = "none";
+      } else {
+        iconMood1.style.display = "none";
+        iconMood2.style.display = "inline-block";
+      }
+      var currentMood = productList1.classList.contains("mood1") ? "mood1" : "mood2";
+      localStorage.setItem("currentMood", currentMood);
+    }
+    document.getElementById("toggleMoodButton").addEventListener("click", toggleMood);
+    document.addEventListener("DOMContentLoaded", function () {
+      var savedMood = localStorage.getItem("currentMood");
+      if (savedMood === "mood1") {
+        toggleMood();
+      }
+    });
+  </script>
+</body>
+
+</html>
