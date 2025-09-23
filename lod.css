@@ -1,66 +1,83 @@
-   @property --deg {
-      syntax: "<angle>";
-      initial-value: 0deg;
-      inherits: true;
-    }
-    @property --p {
-      syntax: "<percentage>";
-      initial-value: 0%;
-      inherits: true;
-    }
-    @property --line-width {
-      syntax: "<length>";
-      initial-value: 1rem;
-      inherits: true;
-    }
+/* START OF LOADER CSS */
+/* CSS untuk overlay loading yang menutupi seluruh layar */
+#loadingScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* Latar belakang semi-transparan */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
 
-    .spinner {
-      width: 10rem;
-      background: conic-gradient(
-        from var(--deg),
+/* Properti kustom untuk animasi loader */
+@property --deg {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: true;
+}
+@property --p {
+    syntax: "<percentage>";
+    initial-value: 0%;
+    inherits: true;
+}
+@property --line-width {
+    syntax: "<length>";
+    initial-value: 1rem;
+    inherits: true;
+}
+
+/* Gaya untuk spinner utama */
+.spinner {
+    width: 10rem;
+    background: conic-gradient(from var(--deg),
         #ffeb3b,
         #9c27b0,
         #03a9f4,
-        transparent var(--p)
-      );
-      mask: radial-gradient(
-        circle,
+        transparent var(--p));
+    mask: radial-gradient(circle,
         transparent calc(10rem / 2 - var(--line-width, 1rem)),
-        black calc(10rem / 2 - var(--line-width, 1rem))
-      );
-      filter: drop-shadow(1rem 0 2rem #03a9f4);
-      border-radius: 50%;
-      aspect-ratio: 1;
-      animation: rotate 1.1s ease infinite, line-width 3.3s ease infinite;
-    }
+        black calc(10rem / 2 - var(--line-width, 1rem)));
+    filter: drop-shadow(1rem 0 2rem #03a9f4);
+    border-radius: 50%;
+    aspect-ratio: 1;
+    animation: rotate 1.1s ease infinite, line-width 3.3s ease infinite;
+}
 
-    @keyframes rotate {
-      from { --p: 20%; }
-      50% { --p: 50%; }
-      70% { --p: 30%; }
-      90% { --p: 10%; }
-      to {
+/* Keyframes untuk animasi rotasi */
+@keyframes rotate {
+    from {
+        --p: 20%;
+    }
+    50% {
+        --p: 50%;
+    }
+    70% {
+        --p: 30%;
+    }
+    90% {
+        --p: 10%;
+    }
+    to {
         --p: 20%;
         --deg: -360deg;
-      }
     }
+}
 
-    @keyframes line-width {
-      from, 20%, 70%, to {
+/* Keyframes untuk animasi lebar garis */
+@keyframes line-width {
+    from,
+    20%,
+    70%,
+    to {
         --line-width: 1rem;
-      }
-      50% {
+    }
+    50% {
         --line-width: .1rem;
-      }
     }
-
-    body {
-      margin: 0;
-      height: 100dvh;
-      background: #111;
-      display: grid;
-      place-items: center;
-    }
-
-
+}
+/* END OF LOADER CSS */
 
